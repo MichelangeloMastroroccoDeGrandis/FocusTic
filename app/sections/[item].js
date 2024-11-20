@@ -13,6 +13,8 @@ const SectionPage = () => {
 
   const id2 = id - 1;
 
+  console.log(list[id2])
+
   if (!list || list.length === 0 || !list[id2]) {
     return (
       <View style={styles.container}>

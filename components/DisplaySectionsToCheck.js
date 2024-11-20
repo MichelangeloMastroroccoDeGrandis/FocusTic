@@ -1,12 +1,16 @@
 import { Card, CheckBox } from '@rneui/themed';
 import { Text } from '@rneui/base';
 import { useState } from "react";
-import { Image } from 'react-native';
+import { Image, View, Button, StyleSheet, Dimensions  } from 'react-native';
+import { Video } from 'expo-av';
+
+const { width } = Dimensions.get('window');
 
 const DisplaySectionsToCheck = ({input}) => {
 
     const [checked, setChecked] = useState(false);
     const toggleCheckbox = () => setChecked(!checked);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const {step, type, content} = input;
 
@@ -42,8 +46,60 @@ const DisplaySectionsToCheck = ({input}) => {
           />
         </Card>
       )
+    } else if (input.type === 'video') {
+
+      return (
+        <Card>
+          <Text>Step: {step} Type: {type} {'\n'}</Text>
+          <View style={styles.contentContainer}>
+            <Video
+              source={{ uri: input.content }}
+              style={styles.video}
+              shouldPlay={isPlaying}
+              resizeMode="contain"
+              onPlaybackStatusUpdate={(status) => {
+                if (status.isPlaying !== undefined) {
+                  setIsPlaying(status.isPlaying);
+                }
+              }}
+              isLooping
+            />
+            <View style={styles.controlsContainer}>
+              <Button
+                title={isPlaying ? 'Pause' : 'Play'}
+                onPress={() => setIsPlaying(!isPlaying)}
+              />
+            </View>
+          </View>
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="red"
+            title="Done"
+          />
+        </Card>
+      )
     }
     
 }
 
 export default DisplaySectionsToCheck;
+
+const styles = StyleSheet.create({
+  contentContainer: {
+    flex: 1,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'left',
+  },
+  video: {
+    width: width * 0.6,
+    height: 275,
+  },
+  controlsContainer: {
+    paddingVertical: 10,
+  },
+});
