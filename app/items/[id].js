@@ -6,6 +6,7 @@ import styles from "../../style/id";
 import ModalCreateStep from "../../components/ModalCreateStep";
 import { Button, ButtonGroup } from "@rneui/base";
 import { Card } from '@rneui/themed';
+import { Audio } from 'expo-av';
 
 const ItemPage = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const ItemPage = () => {
   const [sectionType, setSectionType] = useState('');
   const [videoUri, setVideoUri] = useState(null);
   const [thumbnailUri, setThumbnailUri] = useState(null);
+  const [audioPlayback, setAudioPlayback] = useState(new Audio.Sound());
 
   const openModal = () => {
     setModalVisible(true);
@@ -30,8 +32,6 @@ const ItemPage = () => {
   const AddItemAndCloseModal = (type, content) => {
     const updatedList = [...list];
     const itemToUpdate = updatedList[id2];
-
-    console.log(itemToUpdate)
 
     if (itemToUpdate) {
       itemToUpdate.sections = itemToUpdate.sections || [];
@@ -59,6 +59,11 @@ const ItemPage = () => {
         };
         
       } else if (type === 'Audio') {
+        newSection = {
+          step: itemToUpdate.sections.length +1,
+          type: 'audio',
+          content: content
+        }
         
       }
 
@@ -91,6 +96,14 @@ const ItemPage = () => {
     setInputValue(text);
   }
 
+  const playAudio = async (uri) => {
+    try {
+      await audioPlayback.loadAsync({ uri }, { shouldPlay: true });
+    } catch (error) {
+      console.error('Error playing audio: ', error);
+    }
+  };
+
   const displaySectionsText = (input, index) => {
     if (input.type === 'text') {
       return (
@@ -119,7 +132,16 @@ const ItemPage = () => {
           <Button onPress={() => removeSection(index)} title="Remove" />
         </Card>
       )
-    } 
+    } else if (input.type === 'audio') {
+      return (
+        <Card>
+          <Text>Step: {input.step}{'\n'}</Text>
+          <Text>Type: {input.type}{'\n'}</Text>
+          <Button onPress={() => playAudio(input.content)} title="Play Audio" />
+          <Button onPress={() => removeSection(index)} title="Remove" />
+        </Card>
+      );
+    }
   }
 
   const createSection = (input) => {

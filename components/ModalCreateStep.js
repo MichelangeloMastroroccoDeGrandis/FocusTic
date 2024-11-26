@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import ModalWrap from "./ModalWrap";
 import CloseButton from './CloseButton';
+import { Audio } from 'expo-av';
 
 const ModalCreateStep = ({ 
     type,
@@ -20,6 +21,10 @@ const ModalCreateStep = ({
     const [image, setImage] = useState(null);
     const [video, setVideo] = useState(null);
     const [thumbnail, setThumbnail] = useState(null);
+    const [recording, setRecording] = useState(null);
+    const [sound, setSound] = useState(null);
+    const [recordingUri, setRecordingUri] = useState(null);
+    const [isRecording, setIsRecording] = useState(false);
 
     // Request the required media permissions on mount
     useEffect(() => {
@@ -30,6 +35,46 @@ const ModalCreateStep = ({
         };
         getPermissions();
     }, []);
+
+    const startRecording = async () => {
+        try {
+            const permission = await Audio.requestPermissionsAsync();
+            if (permission.granted) {
+                const { recording } = await Audio.Recording.createAsync(
+                    Audio.RecordingOptionsPresets.HIGH_QUALITY
+                );
+                setRecording(recording);
+                setIsRecording(true);
+            } else {
+                alert('Permission to access microphone is required!');
+            }
+        } catch (error) {
+            console.error('Failed to start recording:', error);
+        }
+    };
+
+    const stopRecording = async () => {
+        if (recording) {
+            try {
+                await recording.stopAndUnloadAsync();
+                const uri = recording.getURI();
+                setRecordingUri(uri);
+                setIsRecording(false);
+            } catch (error) {
+                console.error('Failed to stop recording:', error);
+            }
+        }
+    };
+
+    const playRecording = async () => {
+        if (recordingUri) {
+            const { sound } = await Audio.Sound.createAsync(
+                { uri: recordingUri },
+                { shouldPlay: true }
+            );
+            setSound(sound);
+        }
+    };
 
     const pickImage = async () => {
         // Request permission to access the media library
@@ -141,7 +186,32 @@ const ModalCreateStep = ({
             </ModalWrap>
         );
     } else if (type === 'Audio') {
-        // Handle audio selection logic (not implemented in the current code)
+        return (
+        <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
+            <Text>Add Audio</Text>
+            <View style={styles.container}>
+                {isRecording ? (
+                        <Button title="Stop Recording" onPress={stopRecording} />
+                    ) : (
+                        <Button title="Start Recording" onPress={startRecording} />
+                    )}
+                {recordingUri && !isRecording && (
+                        <>
+                            <Button title="Play Recording" onPress={playRecording} />
+                            <Button
+                              title="Add Audio"
+                              onPress={() => {
+                                if (recordingUri) {
+                                  AddItemAndCloseModal('Audio', recordingUri);
+                                }
+                              }}
+                            />
+                        </>
+                    )}
+            </View>
+            <CloseButton closeModal={closeModal} />
+        </ModalWrap>
+        )
     }
 };
 

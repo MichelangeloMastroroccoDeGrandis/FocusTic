@@ -1,18 +1,49 @@
 import { Card, CheckBox } from '@rneui/themed';
 import { Text } from '@rneui/base';
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Image, View, Button, StyleSheet, Dimensions  } from 'react-native';
-import { Video } from 'expo-av';
+import { Video, Audio } from 'expo-av';
 
 const { width } = Dimensions.get('window');
 
 const DisplaySectionsToCheck = ({input}) => {
 
     const [checked, setChecked] = useState(false);
-    const toggleCheckbox = () => setChecked(!checked);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [sound, setSound] = useState();
 
     const {step, type, content} = input;
+
+    const toggleCheckbox = () => setChecked(!checked);
+
+    useEffect(() => {
+      return () => {
+        if (sound) {
+          sound.unloadAsync(); 
+        }
+      };
+    }, [sound]);
+
+    const handleAudio = async (uri) => {
+      if (isPlaying) {
+        // If audio is already playing, stop it
+        await sound.stopAsync();
+        setIsPlaying(false);
+      } else {
+        try {
+          // If audio is not playing, load and play it
+          const { sound } = await Audio.Sound.createAsync(
+            { uri },
+            { shouldPlay: true }
+          );
+          setSound(sound); // Save the sound object
+          await sound.playAsync();
+          setIsPlaying(true);
+        } catch (error) {
+          console.error('Error loading audio: ', error);
+        }
+      }
+    };
 
     if(input.type === 'text') {
       return (
@@ -70,6 +101,26 @@ const DisplaySectionsToCheck = ({input}) => {
                 onPress={() => setIsPlaying(!isPlaying)}
               />
             </View>
+          </View>
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="red"
+            title="Done"
+          />
+        </Card>
+      )
+    } else if (input.type === 'audio') {
+      return (
+        <Card>
+          <Text>Step: {step} Type: {type} {'\n'}</Text>
+          <View style={styles.contentContainer}>
+            <Button title={isPlaying ? 'Stop Audio':'Play Audio'}
+              onPress={() => handleAudio(content)}
+            />
           </View>
           <CheckBox
             checked={checked}
