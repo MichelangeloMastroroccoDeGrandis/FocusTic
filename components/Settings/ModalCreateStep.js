@@ -1,10 +1,11 @@
-import { StyleSheet, View, Text, TextInput, Button, Image } from "react-native";
 import { useState, useEffect } from "react";
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
-import ModalWrap from "./ModalWrap";
-import CloseButton from './CloseButton';
 import { Audio } from 'expo-av';
+import ModalCreateText from "./ModalCreateText";
+import ModalCreateImage from "./ModalCreateImage";
+import ModalCreateVideo from "./ModalCreateVideo";
+import ModalCreateAudio from "./ModalCreateAudio";
 
 const ModalCreateStep = ({ 
     type,
@@ -137,117 +138,50 @@ const ModalCreateStep = ({
 
     if (type === 'Text') {
         return (
-            <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-                <Text>Add Text</Text>
-                <TextInput
-                    style={styles.input}
-                    value={inputValue}
-                    onChangeText={handleInputChange}
-                    placeholder="Enter text here"
-                />
-                <Button title="Add" onPress={() => AddItemAndCloseModal('Text', inputValue)} />
-                <CloseButton closeModal={closeModal} />
-            </ModalWrap>
+            <ModalCreateText 
+                modalVisible={modalVisible} 
+                inputValue={inputValue} 
+                handleInputChange={handleInputChange} 
+                AddItemAndCloseModal={AddItemAndCloseModal} 
+                closeModal={closeModal}
+            />
         );
     } else if (type === 'Image') {
         return (
-            <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-                <Text>Add Image</Text>
-                <View style={styles.container}>
-                    {image ? (
-                        <>
-                            <Image source={{ uri: image }} style={styles.image} />
-                            <Button title="Add" onPress={() => { if (image) { AddItemAndCloseModal('Image', image); } }} />
-                        </>
-                    ) : (
-                        <Button title="Select Photo" onPress={pickImage} />
-                    )}
-                </View>
-                <CloseButton closeModal={closeModal} />
-            </ModalWrap>
+            <ModalCreateImage 
+                modalVisible={modalVisible} 
+                image={image} 
+                pickImage={pickImage} 
+                AddItemAndCloseModal={AddItemAndCloseModal} 
+                closeModal={closeModal} 
+            />
         );
     } else if (type === 'Video') {
         return (
-            <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-                <Text>Add Video</Text>
-                <View style={styles.container}>
-                    {video ? (
-                        <>
-                            {thumbnail && (
-                                <Image source={{ uri: thumbnail }} style={styles.thumbnail} />
-                            )}
-                            <Button title="Add" onPress={() => AddItemAndCloseModal('Video', video)} />
-                        </>
-                    ) : (
-                        <Button title="Select Video" onPress={pickVideo} />
-                    )}
-                </View>
-                <CloseButton closeModal={closeModal} />
-            </ModalWrap>
+            <ModalCreateVideo 
+                modalVisible={modalVisible} 
+                video={video} 
+                thumbnail={thumbnail} 
+                pickVideo={pickVideo} 
+                AddItemAndCloseModal={AddItemAndCloseModal} 
+                closeModal={closeModal}
+            />
         );
     } else if (type === 'Audio') {
         return (
-        <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-            <Text>Add Audio</Text>
-            <View style={styles.container}>
-                {isRecording ? (
-                        <Button title="Stop Recording" onPress={stopRecording} />
-                    ) : (
-                        <Button title="Start Recording" onPress={startRecording} />
-                    )}
-                {recordingUri && !isRecording && (
-                        <>
-                            <Button title="Play Recording" onPress={playRecording} />
-                            <Button
-                              title="Add Audio"
-                              onPress={() => {
-                                if (recordingUri) {
-                                  AddItemAndCloseModal('Audio', recordingUri);
-                                }
-                              }}
-                            />
-                        </>
-                    )}
-            </View>
-            <CloseButton closeModal={closeModal} />
-        </ModalWrap>
+            <ModalCreateAudio 
+                modalVisible={modalVisible} 
+                isRecording={isRecording} 
+                startRecording={startRecording} 
+                stopRecording={stopRecording} 
+                playRecording={playRecording} 
+                recordingUri={recordingUri} 
+                AddItemAndCloseModal={AddItemAndCloseModal} 
+                closeModal={closeModal}
+            /> 
         )
     }
 };
 
-const styles = StyleSheet.create({
-    input: {
-        width: '100%',
-        height: 40,
-        borderColor: '#ddd',
-        borderWidth: 1,
-        marginBottom: 10,
-        paddingLeft: 10,
-    },
-    closeButton: {
-        marginTop: 20,
-        backgroundColor: '#f1f1f1',
-        padding: 10,
-    },
-    image: {
-        width: 200,
-        height: 200,
-        marginTop: 10,
-        borderRadius: 10,
-    },
-    video: {
-        width: 200,
-        height: 200,
-        marginTop: 10,
-        borderRadius: 10,
-    },
-    thumbnail: {
-        width: 200,
-        height: 200,
-        marginTop: 10,
-        borderRadius: 10,
-        backgroundColor: 'lightgray',
-    },
-});
 
 export default ModalCreateStep;

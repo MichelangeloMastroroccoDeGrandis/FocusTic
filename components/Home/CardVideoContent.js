@@ -1,23 +1,17 @@
 import { View, Button, Dimensions, StyleSheet } from 'react-native';
 import { Video } from 'expo-av';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 const { width } = Dimensions.get('window');
 
-const CardVideoContent = ({input}) => {
+const CardVideoContent = ({content}) => {
     
     const [isPlaying, setIsPlaying] = useState(false);
 
-    useEffect(() => {
-        return () => {
-          if (sound) {
-            sound.unloadAsync(); 
-          }
-        };
-      }, [sound]);
+    
     return <View style={styles.contentContainer}>
             <Video
-              source={{ uri: input.content }}
+              source={{ uri: content }}
               style={styles.video}
               shouldPlay={isPlaying}
               resizeMode="contain"

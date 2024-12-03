@@ -1,7 +1,7 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
 import { useItems, ItemProvider } from "../context/ItemContext";
-import DisplaySectionsToCheck from "../../components/DisplaySectionsToCheck";
+import DisplaySectionsToCheck from "../../components/Home/DisplaySectionsToCheck";
 import styles from "../../style/item";
 
 

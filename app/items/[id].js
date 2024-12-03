@@ -3,7 +3,7 @@ import { View, Text, FlatList, Image } from 'react-native';
 import { useState } from "react";
 import { useItems, ItemProvider } from "../context/ItemContext";
 import styles from "../../style/id";
-import ModalCreateStep from "../../components/ModalCreateStep";
+import ModalCreateStep from "../../components/Settings/ModalCreateStep";
 import { Button, ButtonGroup } from "@rneui/base";
 import { Card } from '@rneui/themed';
 import { Audio } from 'expo-av';

@@ -2,8 +2,8 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import { useState } from 'react';
 import { useItems } from '../context/ItemContext';
-import ListItemRender from '../../components/ListItemRender';
-import ModalCreateItems from '../../components/ModalCreateItems';
+import ListItemRender from '../../components/utils/ListItemRender';
+import ModalCreateItems from '../../components/Settings/ModalCreateItems';
 import styles from '../../style/settings';
 
 export default function Tab() {

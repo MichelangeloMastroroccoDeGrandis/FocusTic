@@ -1,5 +1,6 @@
 import { View, Button, StyleSheet  } from 'react-native';
 import { Audio } from 'expo-av';
+import { useState } from 'react';
 
 const CardAudioContent = ({content}) => {
 
