@@ -1,18 +1,15 @@
-import { useRouter, useLocalSearchParams } from "expo-router";
-import { View, Text, FlatList, Image } from 'react-native';
+import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useItems, ItemProvider } from "../context/ItemContext";
-import styles from "../../style/id";
-import ModalCreateStep from "../../components/Settings/ModalCreateStep";
-import { Button, ButtonGroup } from "@rneui/base";
-import { Card } from '@rneui/themed';
 import { Audio } from 'expo-av';
+import { HandleModal } from '../../components/Hooks/HandleModal';
+import { resetFormFields } from "../../components/Settings/Display/ResetFormField";
+import { createNewSection } from "../../components/Settings/Display/CreateNewSection";
+import CardWrap from "../../components/Settings/Display/CardWrap";
+import { handleSectionTypeSelection } from "../../components/Settings/Display/HandleSectionTypeSelection";
+import DisplayList from "../../components/Settings/Display/DisplayList";
 
 const ItemPage = () => {
-  const router = useRouter();
-  const params = useLocalSearchParams();
-  const { title, id } = params;
-  const { list, setList } = useItems();
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [sectionType, setSectionType] = useState('');
@@ -20,189 +17,59 @@ const ItemPage = () => {
   const [thumbnailUri, setThumbnailUri] = useState(null);
   const [audioPlayback, setAudioPlayback] = useState(new Audio.Sound());
 
-  const openModal = () => {
-    setModalVisible(true);
-  }
+  const { title, id } = useLocalSearchParams();
+  const { list, setList } = useItems();  
+  const { openModal, closeModal } = HandleModal({ setModalVisible, setInputValue });
 
-  const closeModal = () => {
-    setInputValue('');
-    setModalVisible(false);
-  }
+  const handleInputChange = (text) => setInputValue(text);
 
-  const AddItemAndCloseModal = (type, content) => {
+  const handleAddItemAndCloseModal = (type, content) => {
     const updatedList = [...list];
-    const itemToUpdate = updatedList[id2];
+    const itemToUpdate = updatedList[id - 1];
 
     if (itemToUpdate) {
       itemToUpdate.sections = itemToUpdate.sections || [];
-
-      let newSection = null;
-
-      if (type === 'Text') {
-        newSection = {
-          step: itemToUpdate.sections.length + 1,
-          type: 'text',
-          content: inputValue,
-        };
-      } else if (type === 'Image') {
-        newSection = {
-          step: itemToUpdate.sections.length + 1,
-          type: 'image',
-          content: content,  
-        };
-      } else if (type === 'Video') {
-        newSection = {
-          step: itemToUpdate.sections.length + 1,
-          type: 'video',
-          content: videoUri,  
-          thumbnail: thumbnailUri,  
-        };
-        
-      } else if (type === 'Audio') {
-        newSection = {
-          step: itemToUpdate.sections.length +1,
-          type: 'audio',
-          content: content
-        }
-        
-      }
-
-      if (newSection) {
-        itemToUpdate.sections.push(newSection);
-      }
+      const newSection = createNewSection({ type, content, itemToUpdate, inputValue, videoUri, thumbnailUri });
+      if (newSection) itemToUpdate.sections.push(newSection);
     }
 
     setList(updatedList);
-    setInputValue('');
-    setVideoUri(null);
-    setThumbnailUri(null);
-    setModalVisible(false);
+    resetFormFields({ setInputValue, setVideoUri, setThumbnailUri, setModalVisible });
   };
 
-  const removeSection = (index) => {
-    const updatedList = [...list];
-    const itemToUpdate = updatedList[id2];
-
-    if (itemToUpdate) {
-      itemToUpdate.sections.splice(index, 1);
-      itemToUpdate.sections.forEach((section, idx) => {
-        section.step = idx + 1;  
-      });
-      setList(updatedList); 
-    }
+  const displaySectionContent = (section, index) => {
+    const { step, type, content, thumbnail } = section;
+    
+    return <CardWrap 
+              step={step} 
+              type={type} 
+              content={content} 
+              setList={setList} 
+              list={list} 
+              id={id} 
+              index={index} 
+              thumbnail={thumbnail} 
+              audioPlayback={audioPlayback} />
   };
-
-  const handleInputChange = (text) => {
-    setInputValue(text);
-  }
-
-  const playAudio = async (uri) => {
-    try {
-      await audioPlayback.loadAsync({ uri }, { shouldPlay: true });
-    } catch (error) {
-      console.error('Error playing audio: ', error);
-    }
-  };
-
-  const displaySectionsText = (input, index) => {
-    if (input.type === 'text') {
-      return (
-        <Card>
-          <Text>Step: {input.step}{'\n'}</Text>
-          <Text>Type: {input.type}{'\n'}</Text>
-          <Text>Content: {input.content}{'\n'}</Text>
-          <Button onPress={() => removeSection(index)} title="Remove" />
-        </Card>
-      )
-    } else if (input.type === 'image') {
-      return (
-        <Card>
-          <Text>Step: {input.step}{'\n'}</Text>
-          <Text>Type: {input.type}{'\n'}</Text>
-          <Image source={{ uri: input.content }} style={styles.image} />
-          <Button onPress={() => removeSection(index)} title="Remove" />
-        </Card>
-      )
-    } else if (input.type === 'video') {
-      return (
-        <Card>
-          <Text>Step: {input.step}{'\n'}</Text>
-          <Text>Type: {input.type}{'\n'}</Text>
-          {input.thumbnail && <Image source={{ uri: input.thumbnail }} style={styles.thumbnail} />}
-          <Button onPress={() => removeSection(index)} title="Remove" />
-        </Card>
-      )
-    } else if (input.type === 'audio') {
-      return (
-        <Card>
-          <Text>Step: {input.step}{'\n'}</Text>
-          <Text>Type: {input.type}{'\n'}</Text>
-          <Button onPress={() => playAudio(input.content)} title="Play Audio" />
-          <Button onPress={() => removeSection(index)} title="Remove" />
-        </Card>
-      );
-    }
-  }
-
-  const createSection = (input) => {
-    setSectionType(input);
-    openModal();
-  }
 
   const id2 = id - 1;
 
-  if (!list || list.length === 0 || !list[id2]) {
-    return (
-      <View style={styles.container}>
-        <Text>Item not found or invalid ID</Text>
-        <Button onPress={() => router.back()} title="Home" />
-      </View>
-    );
-  }
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        <Button
-          onPress={() => router.back()}
-          title={'\u2190'}
-          buttonStyle={styles.buttonBack}
-          titleStyle={styles.buttonBackText}
-          type="outline"
-        />
-        {title}
-      </Text>
-      <FlatList
-        data={list[id2].sections}
-        renderItem={({ item, index }) => (
-          <View key={index}>{displaySectionsText(item, index)}</View>
-        )}
-        keyExtractor={(index) => index.toString()}
-      />
-      <ButtonGroup
-        buttons={['Text', 'Image', 'Video', 'Audio']}
-        onPress={(index) => createSection(['Text', 'Image', 'Video', 'Audio'][index])}
-      />
-      <ModalCreateStep
-        type={sectionType}
-        modalVisible={modalVisible}
-        inputValue={inputValue}
-        handleInputChange={handleInputChange}
-        AddItemAndCloseModal={AddItemAndCloseModal}
-        closeModal={closeModal}
-        setVideoUri={setVideoUri}
-        setVideoThumbnail={setThumbnailUri}
-      />
-    </View>
-  );
-}
-
-const ItemPageWithProvider = () => {
-  return (
-    <ItemProvider>
-      <ItemPage />
-    </ItemProvider>
+    <DisplayList 
+      title={title} list={list} id2={id2} displaySectionContent={displaySectionContent}
+      handleSectionTypeSelection={handleSectionTypeSelection} setSectionType={setSectionType}
+      openModal={openModal} sectionType={sectionType} modalVisible={modalVisible}
+      inputValue={inputValue} handleInputChange={handleInputChange}
+      handleAddItemAndCloseModal={handleAddItemAndCloseModal} closeModal={closeModal}
+      setVideoUri={setVideoUri} setThumbnailUri={setThumbnailUri}
+    />
   );
 };
+
+const ItemPageWithProvider = () => (
+  <ItemProvider>
+    <ItemPage />
+  </ItemProvider>
+);
 
 export default ItemPageWithProvider;

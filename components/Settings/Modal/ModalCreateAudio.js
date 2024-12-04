@@ -1,6 +1,6 @@
 import { Text, Button, View, StyleSheet } from 'react-native';
-import CloseButton from '../utils/CloseButton';
-import ModalWrap from '../utils/ModalWrap';
+import CloseButton from '../../utils/CloseButton';
+import ModalWrap from '../../utils/ModalWrap';
 
 const ModalCreateAudio = ({modalVisible, isRecording, startRecording, stopRecording, playRecording, recordingUri, AddItemAndCloseModal, closeModal}) => {
     return (

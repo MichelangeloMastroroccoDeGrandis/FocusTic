@@ -1,6 +1,6 @@
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
-import CloseButton from '../utils/CloseButton';
-import ModalWrap from '../utils/ModalWrap';
+import CloseButton from '../../utils/CloseButton';
+import ModalWrap from '../../utils/ModalWrap';
 
 const ModalCreateVideo = ({modalVisible, video, thumbnail, pickVideo, AddItemAndCloseModal, closeModal}) => {
     return (

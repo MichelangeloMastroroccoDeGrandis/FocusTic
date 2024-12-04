@@ -1,6 +1,6 @@
 import { Text, TextInput, Button, StyleSheet } from 'react-native';
-import CloseButton from '../utils/CloseButton';
-import ModalWrap from "../utils/ModalWrap"
+import CloseButton from '../../utils/CloseButton';
+import ModalWrap from "../../utils/ModalWrap"
 
 const ModalCreateText = ({modalVisible, 
     inputValue, 
