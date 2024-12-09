@@ -14,12 +14,12 @@ const CardAudioContent = ({content}) => {
           setIsPlaying(false);
         } else {
           try {
-            // If audio is not playing, load and play it
+      
             const { sound } = await Audio.Sound.createAsync(
               { uri },
               { shouldPlay: true }
             );
-            setSound(sound); // Save the sound object
+            setSound(sound); 
             await sound.playAsync();
             setIsPlaying(true);
           } catch (error) {
