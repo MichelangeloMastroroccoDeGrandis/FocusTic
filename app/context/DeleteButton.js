@@ -1,16 +1,28 @@
-import React from 'react';
 import { View, Button, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Redirect } from 'expo-router';
-
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { useItems } from '../context/ItemContext';
 
 const DeleteButton = () => {
+
+    const { setList } = useItems();
+    const router = useRouter();
 
     const DeleteAll = async () => {
         try {
             await AsyncStorage.clear();
-            Alert.alert('Success', 'Delete all Items');
-            <Redirect href="/home" />
+            setList([]);
+            Alert.alert('Success', 'Deleted all items', [
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    setTimeout(() => {
+                      router.replace('/'); 
+                    }, 100); 
+                  },
+                },
+              ]);
         } catch (err) {
             console.error('Error clearing', err);
             Alert.alert('Error', 'Failed to clear items');
