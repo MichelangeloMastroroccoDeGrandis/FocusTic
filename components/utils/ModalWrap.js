@@ -1,12 +1,13 @@
-import { Modal, View, StyleSheet } from "react-native";
+import { Modal, View, ScrollView } from "react-native";
+import styles from "../../style/ModalWrap";
 
 const ModalWrap = ({modalVisible, closeModal, children}) => {
     return (
         <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={closeModal}>
-            <View style={styles.modalContainer}>
-                <View style={styles.modalContent}>
+            <View style={styles.container}>
+                <ScrollView contentContainerStyle={styles.scrollContainer}>
                     {children}
-                </View>
+                </ScrollView>
             </View>
         </Modal>
     )
@@ -14,18 +15,3 @@ const ModalWrap = ({modalVisible, closeModal, children}) => {
 
 export default ModalWrap;
 
-const styles = StyleSheet.create({
-    modalContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-      width: 300,
-      padding: 10,
-      backgroundColor: 'white',
-      borderRadius: 10,
-      alignItems: 'center',
-    }
-  });

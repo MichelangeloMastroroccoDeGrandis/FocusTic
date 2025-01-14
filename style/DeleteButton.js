@@ -3,14 +3,6 @@ import colors from "./colors";
 import buttonStyles from "./ButtonStyle";
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 6,
-        backgroundColor: colors.dark 
-    },
-    bottom: {
-        flex: 1,
-        backgroundColor: colors.dark 
-    },
     ...buttonStyles
 })
 

@@ -1,7 +1,8 @@
 import { Image } from 'react-native';
+import styles from '../../style/CardImageContent';
 
 const CardImageContent = ({content}) => {
-    return <Image source={{ uri: content }} style={{width: 200, height: 200}} />
+    return <Image style={styles.image} source={{ uri: content }} />
 }
 
 export default CardImageContent

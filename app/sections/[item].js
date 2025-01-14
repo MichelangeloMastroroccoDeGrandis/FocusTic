@@ -1,8 +1,8 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
-import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Button, FlatList, TouchableOpacity } from 'react-native';
 import { useItems, ItemProvider } from "../context/ItemContext";
 import DisplaySectionsToCheck from "../../components/Home/DisplaySectionsToCheck";
-import styles from "../../style/item";
+import styles from '../../style/index'
 
 
 const SectionPage = () => {
@@ -19,16 +19,20 @@ const SectionPage = () => {
     return (
       <View style={styles.container}>
         <Text>Item not found or invalid ID</Text>
-        <Button onPress={() => router.back()} title="Home" />
+        <TouchableOpacity style={styles.button} onPress={() => router.back()}>
+          <Text style={styles.buttonText}>Return to Home</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Text>{title}</Text>
         <FlatList data={list[id2].sections} renderItem={({item}) => <DisplaySectionsToCheck input={item} /> } keyExtractor={(index) => index.toString()} />
-        <Button onPress={() => router.back()} title='Home' style={styles.button} />
+        <TouchableOpacity style={styles.button} onPress={() => router.back()}>
+          <Text style={styles.buttonText}>Return to Home</Text>
+        </TouchableOpacity>
     </View>
   );
 }

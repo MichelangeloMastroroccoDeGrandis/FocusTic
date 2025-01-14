@@ -1,6 +1,7 @@
-import { View, Button, StyleSheet  } from 'react-native';
+import { View, Button, Text, TouchableOpacity  } from 'react-native';
 import { Audio } from 'expo-av';
 import { useState } from 'react';
+import styles from '../../style/ButtonStyle';
 
 const CardAudioContent = ({content}) => {
 
@@ -28,20 +29,13 @@ const CardAudioContent = ({content}) => {
         }
       };
 
-    return <View style={styles.contentContainer}>
-                <Button title={isPlaying ? 'Stop Audio':'Play Audio'}
-                onPress={() => handleAudio(content)}
-                />
+    return <View >
+      <TouchableOpacity style={styles.button} onPress={() => handleAudio(content)}>
+          <Text style={styles.buttonText}>{isPlaying ? 'Stop Audio':'Play Audio'}</Text>
+      </TouchableOpacity>
+                
             </View>
 }
 
 export default CardAudioContent
 
-const styles = StyleSheet.create({
-    contentContainer: {
-      flex: 1,
-      paddingVertical: 10,
-      alignItems: 'center',
-      justifyContent: 'left',
-    }
-  });
