@@ -1,21 +1,24 @@
-import { Text, View, Image, Button, StyleSheet } from 'react-native';
+import { Text, View, Image, Button, TouchableOpacity } from 'react-native';
 import CloseButton from '../../utils/CloseButton';
 import ModalWrap from '../../utils/ModalWrap';
+import styles from '../../../style/ModalCreateItem';
 
 const ModalCreateVideo = ({modalVisible, video, thumbnail, pickVideo, AddItemAndCloseModal, closeModal}) => {
     return (
         <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-        <Text>Add Video</Text>
-        <View style={styles.container}>
+        <Text style={styles.text}>Add Video</Text>
+        <View >
             {video ? (
                 <>
                     {thumbnail && (
-                        <Image source={{ uri: thumbnail }} style={styles.thumbnail} />
+                        <Image source={{ uri: thumbnail }}  />
                     )}
                     <Button title="Add" onPress={() => AddItemAndCloseModal('Video', video)} />
                 </>
             ) : (
-                <Button title="Select Video" onPress={pickVideo} />
+                <TouchableOpacity style={styles.button} onPress={pickVideo}>
+                    <Text style={styles.buttonText}>Add</Text>
+                </TouchableOpacity>
             )}
         </View>
         <CloseButton closeModal={closeModal} />
@@ -23,19 +26,5 @@ const ModalCreateVideo = ({modalVisible, video, thumbnail, pickVideo, AddItemAnd
       );
 }
 
-const styles = StyleSheet.create({
-    container: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 20,
-    },
-    thumbnail: {
-      width: 200,
-      height: 200,
-      marginTop: 10,
-      borderRadius: 10,
-      backgroundColor: 'lightgray',
-    },
-  });
   
   export default ModalCreateVideo;

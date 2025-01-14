@@ -1,23 +1,37 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import { ItemProvider } from '../context/ItemContext';
+import colors from '../../style/colors'
 
 export default function TabLayout() {
   return (
     <ItemProvider>
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+    <Tabs screenOptions={{ 
+      tabBarActiveTintColor: colors.gold,
+      tabBarInactiveTintColor: colors.light,
+      tabBarStyle: {
+        backgroundColor: colors.medium
+      },
+      headerStyle: {
+        backgroundColor: colors.dark
+      },
+      headerTitleStyle: {
+        color: colors.gold
+      }
+      }}
+      >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          title: 'Tasks',
+          tabBarIcon: ({ color }) => <FontAwesome size={22} name="check" color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+          title: 'Create',
+          tabBarIcon: ({ color }) => <FontAwesome size={22} name="edit" color={color} />,
         }}
       />
     </Tabs>

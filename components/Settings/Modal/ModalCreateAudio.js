@@ -1,28 +1,38 @@
-import { Text, Button, View, StyleSheet } from 'react-native';
+import { Text, Button, View, TouchableOpacity } from 'react-native';
 import CloseButton from '../../utils/CloseButton';
 import ModalWrap from '../../utils/ModalWrap';
+import styles from '../../../style/ModalCreateItem';
 
 const ModalCreateAudio = ({modalVisible, isRecording, startRecording, stopRecording, playRecording, recordingUri, AddItemAndCloseModal, closeModal}) => {
     return (
         <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-          <Text>Add Audio</Text>
-          <View style={styles.container}>
+          <Text style={styles.text}>Add Audio</Text>
+          <View >
             {isRecording ? (
-              <Button title="Stop Recording" onPress={stopRecording} />
+              <TouchableOpacity style={styles.buttonReverse} onPress={stopRecording}>
+                <Text style={styles.buttonTextReverse}>Stop Recording</Text>
+              </TouchableOpacity>
             ) : (
-              <Button title="Start Recording" onPress={startRecording} />
+              <TouchableOpacity style={styles.button} onPress={startRecording}>
+                <Text style={styles.buttonText}>Start Recording</Text>
+              </TouchableOpacity>
             )}
             {recordingUri && !isRecording && (
               <>
-                <Button title="Play Recording" onPress={playRecording} />
-                <Button
-                  title="Add Audio"
+                <TouchableOpacity style={styles.button} onPress={playRecording}>
+                  <Text style={styles.buttonText}>Play Recording</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                  style={styles.button} 
                   onPress={() => {
                     if (recordingUri) {
                       AddItemAndCloseModal('Audio', recordingUri);
                     }
-                  }}
-                />
+                  }}>
+                  <Text style={styles.buttonText}>Add Audio</Text>
+                </TouchableOpacity>
+
               </>
             )}
           </View>
@@ -31,12 +41,5 @@ const ModalCreateAudio = ({modalVisible, isRecording, startRecording, stopRecord
       );
 }
 
-const styles = StyleSheet.create({
-    container: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 20,
-    },
-  });
   
   export default ModalCreateAudio;

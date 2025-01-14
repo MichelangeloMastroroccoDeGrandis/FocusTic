@@ -1,6 +1,8 @@
-import { Text, TextInput, Button, StyleSheet } from 'react-native';
+import { Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import CloseButton from '../../utils/CloseButton';
 import ModalWrap from "../../utils/ModalWrap"
+import styles from '../../../style/ModalCreateItem';
+import colors from '../../../style/colors';
 
 const ModalCreateText = ({modalVisible, 
     inputValue, 
@@ -9,28 +11,21 @@ const ModalCreateText = ({modalVisible,
     closeModal}) => {
         return(
             <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-                <Text>Add Text</Text>
+                <Text style={styles.text}>Add Text</Text>
                 <TextInput
                     style={styles.input}
                     value={inputValue}
                     onChangeText={handleInputChange}
                     placeholder="Enter text here"
+                    placeholderTextColor={colors.light}
                 />
-                <Button title="Add" onPress={() => AddItemAndCloseModal('Text', inputValue)} />
+                <TouchableOpacity style={styles.button} onPress={() => AddItemAndCloseModal('Text', inputValue)}>
+                    <Text style={styles.buttonText}>Add</Text>
+                </TouchableOpacity>
+                
                 <CloseButton closeModal={closeModal} />
             </ModalWrap>
         )
 }
-
-const styles = StyleSheet.create({
-    input: {
-      width: '100%',
-      height: 40,
-      borderColor: '#ddd',
-      borderWidth: 1,
-      marginBottom: 10,
-      paddingLeft: 10,
-    },
-  });
   
   export default ModalCreateText;

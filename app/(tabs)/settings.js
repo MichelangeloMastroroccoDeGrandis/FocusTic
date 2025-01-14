@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useItems } from '../context/ItemContext';
 import ListItemRender from '../../components/utils/ListItemRender';
 import ModalCreateItems from '../../components/Settings/Modal/ModalCreateItems';
-import styles from '../../style/settings';
 import { HandleModal } from '../../components/Hooks/HandleModal';
+import styles from '../../style/settings'
 
 export default function Tab() {
     
@@ -27,11 +27,11 @@ export default function Tab() {
   return (
     <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
-            <View style={styles.textContainer}>
+            <View>
                 <FlatList data={list} renderItem={({item}) => <ListItemRender item={item} type="item" />} keyExtractor={item => item.id.toString()} />
             </View>
-            <TouchableOpacity onPress={openModal} style={styles.button}>
-                <Text>Add List</Text>
+            <TouchableOpacity style={styles.button} onPress={openModal} >
+                <Text style={styles.buttonText}>Add List</Text>
             </TouchableOpacity>
 
             <ModalCreateItems 
