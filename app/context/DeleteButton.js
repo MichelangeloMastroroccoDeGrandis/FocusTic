@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Button, Alert } from 'react-native';
+import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Redirect } from 'expo-router';
+import styles from '../../style/DeleteButton';
 
 
 const DeleteButton = () => {
