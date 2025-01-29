@@ -18,6 +18,9 @@ const ItemPage = () => {
   const [audioPlayback, setAudioPlayback] = useState(new Audio.Sound());
 
   const { title, id } = useLocalSearchParams();
+
+  console.log('ID:', id);
+
   const { list, setList } = useItems();  
   const { openModal, closeModal } = HandleModal({ setModalVisible, setInputValue });
 
@@ -25,7 +28,7 @@ const ItemPage = () => {
 
   const handleAddItemAndCloseModal = (type, content) => {
     const updatedList = [...list];
-    const itemToUpdate = updatedList[id - 1];
+    const itemToUpdate = updatedList[parseInt(id) - 1];
 
     if (itemToUpdate) {
       itemToUpdate.sections = itemToUpdate.sections || [];
@@ -38,9 +41,10 @@ const ItemPage = () => {
   };
 
   const displaySectionContent = (section, index) => {
-    const { step, type, content, thumbnail } = section;
+    const { step, type, content, thumbnail, id } = section;
     
     return <CardWrap 
+              key={id}
               step={step} 
               type={type} 
               content={content} 

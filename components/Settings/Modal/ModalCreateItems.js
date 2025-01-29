@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
+import { Text, TextInput, TouchableOpacity } from "react-native";
 import ModalWrap from "../../utils/ModalWrap";
 import CloseButton from "../../utils/CloseButton";
 import styles from "../../../style/ModalCreateItems";

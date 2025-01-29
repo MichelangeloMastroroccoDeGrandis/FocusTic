@@ -29,7 +29,7 @@ const SectionPage = () => {
   return (
     <View style={styles.container}>
       <Text>{title}</Text>
-        <FlatList data={list[id2].sections} renderItem={({item}) => <DisplaySectionsToCheck input={item} /> } keyExtractor={(index) => index.toString()} />
+        <FlatList data={list[id2].sections} renderItem={({item}) => <DisplaySectionsToCheck input={item} /> } keyExtractor={(item) => item.id} />
         <TouchableOpacity style={styles.button} onPress={() => router.back()}>
           <Text style={styles.buttonText}>Return to Home</Text>
         </TouchableOpacity>

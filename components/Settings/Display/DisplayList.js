@@ -50,9 +50,9 @@ const DisplayList = ({
       <FlatList
         data={list[id2].sections}
         renderItem={({ item, index }) => (
-          <View key={index}>{displaySectionContent(item, index)}</View>
+          <View key={item.id}>{displaySectionContent(item, index)}</View>
         )}
-        keyExtractor={(index) => index.toString()}
+        keyExtractor={(item) => item.id ? item.id.toString() : `section-${index}`}
       />
       <ButtonGroup
         containerStyle={styles.buttonGroupContainer}
