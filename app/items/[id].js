@@ -19,8 +19,6 @@ const ItemPage = () => {
 
   const { title, id } = useLocalSearchParams();
 
-  console.log('ID:', id);
-
   const { list, setList } = useItems();  
   const { openModal, closeModal } = HandleModal({ setModalVisible, setInputValue });
 
@@ -59,6 +57,7 @@ const ItemPage = () => {
   const id2 = id - 1;
 
   return (
+    <>
     <DisplayList 
       title={title} list={list} id2={id2} displaySectionContent={displaySectionContent}
       handleSectionTypeSelection={handleSectionTypeSelection} setSectionType={setSectionType}
@@ -67,6 +66,8 @@ const ItemPage = () => {
       handleAddItemAndCloseModal={handleAddItemAndCloseModal} closeModal={closeModal}
       setVideoUri={setVideoUri} setThumbnailUri={setThumbnailUri}
     />
+    {}
+    </>
   );
 };
 

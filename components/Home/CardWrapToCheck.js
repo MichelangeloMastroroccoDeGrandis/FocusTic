@@ -1,16 +1,13 @@
 import { Card, CheckBox } from '@rneui/themed';
 import { Text } from '@rneui/base';
-import { useState } from "react";
 import CardTextContent from './CardTextContent';
 import CardImageContent from './CardImageContent';
 import CardVideoContent from './CardVideoContent';
 import CardAudioContent from './CardAudioContent';
 import styles from '../../style/CardWrapToCheck';
 
-const CardWrapToCheck = ({input}) => {
-    const {step, content, type} = input;
-    const [checked, setChecked] = useState(false);
-    const toggleCheckbox = () => setChecked(!checked);
+const CardWrapToCheck = ({input, checked, handleCheckboxToggle}) => {
+    const {step, content, type, id} = input;
 
     return  <Card containerStyle={[styles.container]}>
                 <Text style={styles.step}>Step: {step} Type: {type} {'\n'}</Text>
@@ -20,7 +17,7 @@ const CardWrapToCheck = ({input}) => {
                 {type === 'audio' &&  <CardAudioContent content={content} />}
                 <CheckBox
                 checked={checked}
-                onPress={toggleCheckbox}
+                onPress={() => handleCheckboxToggle(id)}
                 iconType="material-community"
                 checkedIcon="checkbox-marked"
                 uncheckedIcon="checkbox-blank-outline"
