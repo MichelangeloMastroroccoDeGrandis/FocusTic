@@ -1,4 +1,4 @@
-import { View, Button, Text, TouchableOpacity  } from 'react-native';
+import { View, Text, TouchableOpacity  } from 'react-native';
 import { Audio } from 'expo-av';
 import { useState } from 'react';
 import styles from '../../style/ButtonStyle';
