@@ -1,11 +1,11 @@
 import uuid from 'react-native-uuid';
 
-export const createNewSection = ({ type, content, itemToUpdate, inputValue, videoUri, thumbnailUri }) => {
+export const createNewSection = ({ type, content, itemToUpdate, inputValue, videoUri, thumbnailUri, timer }) => {
     const step = itemToUpdate.sections.length + 1; // Compute step based on current sections
   
     switch (type) {
       case 'Text':
-        return { id: uuid.v4(), step, type: 'text', content: inputValue };
+        return { id: uuid.v4(), step, type: 'text', content: inputValue, timer: timer };
       case 'Image':
         return { id: uuid.v4(), step, type: 'image', content };
       case 'Video':
