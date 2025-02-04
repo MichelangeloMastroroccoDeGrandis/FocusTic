@@ -1,5 +1,5 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
-import { View, Text, Button, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useItems, ItemProvider } from "../context/ItemContext";
 import DisplaySectionsToCheck from "../../components/Home/DisplaySectionsToCheck";
 import styles from '../../style/index'

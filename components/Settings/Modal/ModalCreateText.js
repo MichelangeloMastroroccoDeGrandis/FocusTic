@@ -51,7 +51,7 @@ const ModalCreateText = ({modalVisible,
                 checkedColor="gold"
                 //containerStyle={styles.check}
                 //textStyle={styles.checkText}
-                title="Done"
+                title="Add Timer"
                 />
 
                 {timer && (
