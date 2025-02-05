@@ -30,6 +30,17 @@ const buttonStyles = StyleSheet.create({
   buttonTextReverse: {
     color: colors.light,
     fontSize: 16,
+  },
+  buttonRow: {
+    marginTop: 20,
+    marginHorizontal: 5,
+    backgroundColor: colors.gold,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignSelf: 'center'
   }
 });
 

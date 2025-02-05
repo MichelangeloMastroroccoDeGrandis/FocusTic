@@ -4,7 +4,7 @@ import buttonStyles from "./ButtonStyle";
 
 const styles = StyleSheet.create({
     container: {
-        flex: 6,
+        flex: 5,
         backgroundColor: colors.dark 
     },
     bottom: {

@@ -25,6 +25,8 @@ const SectionPage = () => {
     }
   }, [list, id2]);
 
+  
+
   const handleCheckboxToggle = (sectionId) => {
     setCheckboxStates((prevStates) => ({
       ...prevStates,

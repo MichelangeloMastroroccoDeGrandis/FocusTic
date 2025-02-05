@@ -24,13 +24,13 @@ const ItemPage = () => {
 
   const handleInputChange = (text) => setInputValue(text);
 
-  const handleAddItemAndCloseModal = (type, content) => {
+  const handleAddItemAndCloseModal = (type, content, timer, hours, minutes, seconds) => {
     const updatedList = [...list];
     const itemToUpdate = updatedList[parseInt(id) - 1];
 
     if (itemToUpdate) {
       itemToUpdate.sections = itemToUpdate.sections || [];
-      const newSection = createNewSection({ type, content, itemToUpdate, inputValue, videoUri, thumbnailUri });
+      const newSection = createNewSection({ type, content, itemToUpdate, inputValue, videoUri, thumbnailUri, timer, hours, minutes, seconds });
       if (newSection) itemToUpdate.sections.push(newSection);
     }
 
@@ -39,7 +39,7 @@ const ItemPage = () => {
   };
 
   const displaySectionContent = (section, index) => {
-    const { step, type, content, thumbnail, id } = section;
+    const { step, type, content, thumbnail, id, timer, hours, minutes, seconds } = section;
     
     return <CardWrap 
               key={id}
@@ -49,7 +49,11 @@ const ItemPage = () => {
               setList={setList} 
               list={list} 
               id={id} 
-              index={index} 
+              index={index}
+              timer={timer}
+              hours={hours}
+              minutes={minutes}
+              seconds={seconds} 
               thumbnail={thumbnail} 
               audioPlayback={audioPlayback} />
   };

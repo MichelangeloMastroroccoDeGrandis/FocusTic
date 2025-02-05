@@ -34,6 +34,8 @@ const DisplayList = ({
             </View>
         );
         }
+
+        console.log(list[id2].sections);
     
     return (
     <View style={styles.container}>
@@ -46,7 +48,8 @@ const DisplayList = ({
         
         <Text style={styles.text}>{title}</Text>
       </View>
-
+      
+      
       <FlatList
         data={list[id2].sections}
         renderItem={({ item, index }) => (
