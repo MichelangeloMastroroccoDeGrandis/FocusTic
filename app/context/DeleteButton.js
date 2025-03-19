@@ -1,23 +1,21 @@
-import React from 'react';
 import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useItems } from '../context/ItemContext'; // Import useItems hook
-import styles from '../../style/ButtonStyleClose';
+import { useContext } from 'react';
+import { ItemContext } from '../context/ItemContext';  
+import styles from '../../style/DeleteButton';
 
 const DeleteButton = () => {
-  const { setList } = useItems(); // Get the setList function from the context
-  
+  const { setList } = useContext(ItemContext);  // ✅ Get setList from context
 
   const DeleteAll = async () => {
-    try {
-      await AsyncStorage.clear();
-      setList([]); // Clear the list state
-      Alert.alert('Success', 'Deleted all items');
-      
-    } catch (err) {
-      console.error('Error clearing', err);
-      Alert.alert('Error', 'Failed to clear items');
-    }
+      try {
+          await AsyncStorage.clear();
+          setList([]);  // ✅ Clear list in context
+          Alert.alert('Success', 'All items deleted');
+      } catch (err) {
+          console.error('Error clearing', err);
+          Alert.alert('Error', 'Failed to clear items');
+      }
   };
 
   return (
@@ -30,3 +28,4 @@ const DeleteButton = () => {
 };
 
 export default DeleteButton;
+

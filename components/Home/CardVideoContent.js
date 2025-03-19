@@ -30,5 +30,4 @@ const CardVideoContent = ({content}) => {
           </View>
 }
 
-export default CardVideoContent
-
+export default CardVideoContent;

@@ -49,3 +49,5 @@ export const useItems = () => {
     }
     return context;
   };
+
+  export default ItemContext;

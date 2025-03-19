@@ -6,6 +6,7 @@ import ListItemRender from '../../components/utils/ListItemRender';
 import styles from '../../style/index'
 
 
+
 export default function Tab() {
 
   const {list} = useContext(ItemContext);
@@ -13,7 +14,7 @@ export default function Tab() {
   return (
   <>
     <View style={styles.container}>
-      <FlatList data={list} renderItem={({item}) => <ListItemRender item={item} type="section" />} keyExtractor={item => item.id.toString()} />
+      <FlatList data={list} renderItem={({item}) => <ListItemRender item={item} type="section" />} keyExtractor={(item, index) => item.id ? item.id.toString() : `section-${id2}-${index}`} />
     </View>
     <View style={styles.bottom}>
       <DeleteButton />

@@ -18,18 +18,19 @@ const ItemPage = () => {
   const [audioPlayback, setAudioPlayback] = useState(new Audio.Sound());
 
   const { title, id } = useLocalSearchParams();
+
   const { list, setList } = useItems();  
   const { openModal, closeModal } = HandleModal({ setModalVisible, setInputValue });
 
   const handleInputChange = (text) => setInputValue(text);
 
-  const handleAddItemAndCloseModal = (type, content) => {
+  const handleAddItemAndCloseModal = (type, content, timer, hours, minutes, seconds) => {
     const updatedList = [...list];
-    const itemToUpdate = updatedList[id - 1];
+    const itemToUpdate = updatedList[parseInt(id) - 1];
 
     if (itemToUpdate) {
       itemToUpdate.sections = itemToUpdate.sections || [];
-      const newSection = createNewSection({ type, content, itemToUpdate, inputValue, videoUri, thumbnailUri });
+      const newSection = createNewSection({ type, content, itemToUpdate, inputValue, videoUri, thumbnailUri, timer, hours, minutes, seconds });
       if (newSection) itemToUpdate.sections.push(newSection);
     }
 
@@ -38,16 +39,21 @@ const ItemPage = () => {
   };
 
   const displaySectionContent = (section, index) => {
-    const { step, type, content, thumbnail } = section;
+    const { step, type, content, thumbnail, id, timer, hours, minutes, seconds } = section;
     
     return <CardWrap 
+              key={id}
               step={step} 
               type={type} 
               content={content} 
               setList={setList} 
               list={list} 
               id={id} 
-              index={index} 
+              index={index}
+              timer={timer}
+              hours={hours}
+              minutes={minutes}
+              seconds={seconds} 
               thumbnail={thumbnail} 
               audioPlayback={audioPlayback} />
   };
@@ -55,6 +61,7 @@ const ItemPage = () => {
   const id2 = id - 1;
 
   return (
+    <>
     <DisplayList 
       title={title} list={list} id2={id2} displaySectionContent={displaySectionContent}
       handleSectionTypeSelection={handleSectionTypeSelection} setSectionType={setSectionType}
@@ -63,6 +70,8 @@ const ItemPage = () => {
       handleAddItemAndCloseModal={handleAddItemAndCloseModal} closeModal={closeModal}
       setVideoUri={setVideoUri} setThumbnailUri={setThumbnailUri}
     />
+    {}
+    </>
   );
 };
 

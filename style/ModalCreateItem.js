@@ -26,6 +26,31 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 10,
       },
+      check: {
+        backgroundColor: colors.medium,
+        marginTop: 10
+      },
+      checkText: {
+        color: colors.gold,
+        fontSize: 18,
+      },
+      timerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+      },
+      timerInput: {
+        marginVertical: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        color: colors.light,
+        paddingVertical: 5, 
+        fontSize: 14, 
+        width: 80,
+        height: 40, 
+        textAlign: 'center'
+       },
     ...buttonStyles,
     
 });

@@ -26,6 +26,10 @@ const ModalCreateStep = ({
     const [sound, setSound] = useState(null);
     const [recordingUri, setRecordingUri] = useState(null);
     const [isRecording, setIsRecording] = useState(false);
+    const [timer, setTimer] = useState(false);
+    const [hours, setHours] = useState('');
+    const [minutes, setMinutes] = useState('');
+    const [seconds, setSeconds] = useState('');
 
     // Request the required media permissions on mount
     useEffect(() => {
@@ -144,6 +148,14 @@ const ModalCreateStep = ({
                 handleInputChange={handleInputChange} 
                 AddItemAndCloseModal={AddItemAndCloseModal} 
                 closeModal={closeModal}
+                timer={timer}
+                setTimer={setTimer}
+                seconds={seconds}
+                setSeconds={setSeconds}
+                minutes={minutes}
+                setMinutes={setMinutes}
+                hours={hours}
+                setHours={setHours}
             />
         );
     } else if (type === 'Image') {

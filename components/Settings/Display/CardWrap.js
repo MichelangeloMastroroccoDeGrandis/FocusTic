@@ -2,7 +2,7 @@ import { Text, Image, TouchableOpacity } from "react-native";
 import CardWrapContent from "./CardWrapContent";
 import styles from "../../../style/CardWrap";
 
-const CardWrap = ({step, type, content, setList, list, id, index, thumbnail, audioPlayback}) => {
+const CardWrap = ({step, type, content, setList, list, id, index, thumbnail, audioPlayback, timer, hours, minutes, seconds}) => {
 
   const playAudio = async (uri) => {
     try {
@@ -12,12 +12,18 @@ const CardWrap = ({step, type, content, setList, list, id, index, thumbnail, aud
     }
   };
 
+
     switch (type) {
         case 'text':
           return (
             <CardWrapContent step={step} type={type} index={index} list={list} id={id} setList={setList}>
               <Text style={styles.text}>Content:</Text>
               <Text style={styles.text}>{content}</Text>
+              {timer && (
+            <Text style={styles.text}>
+              {String(hours).padStart(2, '0')} : {String(minutes).padStart(2, '0')} : {String(seconds).padStart(2, '0')}
+            </Text>
+          )}
             </CardWrapContent>
             
           );
