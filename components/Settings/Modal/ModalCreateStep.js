@@ -121,21 +121,30 @@ const ModalCreateStep = ({
             const videoUri = result.assets[0].uri;
             setVideo(videoUri);
 
-            // Extract thumbnail from the video using MediaLibrary
             try {
+                // Create an asset from the video URI
                 const asset = await MediaLibrary.createAssetAsync(videoUri);
+                
+                // Get the asset info which includes the thumbnail
                 const info = await MediaLibrary.getAssetInfoAsync(asset);
-
-                if (info && info.uri && info.uri.includes('.jpg')) {
-                    setThumbnail(info.uri);  // This should now be an image URI (e.g., .jpg)
+                
+                if (info && info.thumbnail) {
+                    setThumbnail(info.thumbnail);
+                    setVideoUri(videoUri);
+                    setVideoThumbnail(info.thumbnail);
                 } else {
-                    console.error('Failed to extract a valid thumbnail image');
+                    console.error('Failed to extract thumbnail from video');
+                    // Fallback to using the video URI as thumbnail
+                    setThumbnail(videoUri);
+                    setVideoUri(videoUri);
+                    setVideoThumbnail(videoUri);
                 }
-
-                setVideoUri(videoUri);   
-                setVideoThumbnail(info.uri);
             } catch (error) {
-                console.error('Error getting thumbnail:', error);
+                console.error('Error processing video:', error);
+                // Fallback to using the video URI as thumbnail
+                setThumbnail(videoUri);
+                setVideoUri(videoUri);
+                setVideoThumbnail(videoUri);
             }
         }
     };

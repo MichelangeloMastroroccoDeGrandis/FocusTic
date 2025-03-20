@@ -18,6 +18,6 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
     },
     ...buttonStyles
-  });
+});
 
-export default styles
+export default styles;

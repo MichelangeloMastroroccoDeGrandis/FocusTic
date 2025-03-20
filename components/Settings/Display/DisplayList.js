@@ -55,7 +55,7 @@ const DisplayList = ({
         renderItem={({ item, index }) => (
           <View key={item.id}>{displaySectionContent(item, index)}</View>
         )}
-        keyExtractor={(item) => item.id ? item.id.toString() : `section-${index}`}
+        keyExtractor={(item, index) => item.id ? item.id.toString() : `section-${index}`}
       />
       <ButtonGroup
         containerStyle={styles.buttonGroupContainer}
