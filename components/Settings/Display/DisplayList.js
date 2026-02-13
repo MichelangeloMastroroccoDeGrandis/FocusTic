@@ -53,7 +53,9 @@ const DisplayList = ({
       <FlatList
         data={list[id2].sections}
         renderItem={({ item, index }) => (
-          <View key={item.id}>{displaySectionContent(item, index)}</View>
+          <View key={item.id} style={index === list[id2].sections.length - 1 ? { paddingBottom: 40 } : {}}>
+            {displaySectionContent(item, index)}
+          </View>
         )}
         keyExtractor={(item, index) => item.id ? item.id.toString() : `section-${index}`}
       />

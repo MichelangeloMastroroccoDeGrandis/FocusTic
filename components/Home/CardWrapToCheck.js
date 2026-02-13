@@ -8,7 +8,7 @@ import CardAudioContent from './CardAudioContent';
 import styles from '../../style/CardWrapToCheck';
 
 const CardWrapToCheck = ({input, checked, handleCheckboxToggle}) => {
-    const {step, content, type, id, timer, hours, minutes, seconds } = input;
+    const {step, content, type, id, timer, hours, minutes, seconds, title } = input;
     const [isChecked, setIsChecked] = useState(checked);
     const [countdownFinished, setCountdownFinished] = useState(false);
 
@@ -22,7 +22,7 @@ const CardWrapToCheck = ({input, checked, handleCheckboxToggle}) => {
 
     return (
         <Card containerStyle={[styles.container]}>
-            <Text style={styles.step}>Step: {step} Type: {type} {'\n'}</Text>
+            <Text style={styles.step}>Step {step}: {title} {'\n'}</Text>
     
             {type === 'text' &&  
                 <CardTextContent   

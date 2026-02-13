@@ -14,7 +14,7 @@ export default function Tab() {
   return (
   <>
     <View style={styles.container}>
-      <FlatList data={list} renderItem={({item}) => <ListItemRender item={item} type="section" />} keyExtractor={(item, index) => item.id ? item.id.toString() : `section-${id2}-${index}`} />
+      <FlatList data={list} renderItem={({item}) => <ListItemRender item={item} type="section" list={list} />} keyExtractor={(item, index) => item.id ? item.id.toString() : `section-${index}`} />
     </View>
     <View style={styles.bottom}>
       <DeleteButton />

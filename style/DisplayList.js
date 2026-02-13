@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         width: '100%',
         paddingHorizontal: 20,
-        marginTop: 20,
+        marginTop: 40,
     },
     text: {
         color: colors.light,
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     buttonGroupContainer: {
+        bottom: 40,
         height: 50,
         backgroundColor: colors.medium,
         borderColor: colors.gold

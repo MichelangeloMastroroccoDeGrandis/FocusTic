@@ -10,6 +10,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 22
     },
+    textSmall: {
+        color: colors.light,
+        textAlign: 'center',
+        fontSize: 18,
+        paddingVertical: 5,
+        paddingTop: 10,
+    },
     input: {
         height: 40,
         backgroundColor: colors.medium,

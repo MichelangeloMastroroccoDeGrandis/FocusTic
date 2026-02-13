@@ -6,15 +6,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: Dimensions.get('window').width * .95,
-        maxHeight: Dimensions.get('window').height * 0.5,
+        //maxHeight: Dimensions.get('window').height * 0.5,
         marginHorizontal: 10,
-        marginTop: 60,
+        marginTop: 0,
         backgroundColor: colors.medium,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center', 
         padding: 20, 
-        borderRadius: 10,
+        borderRadius: 0,
     },
     scrollContainer: {
       padding: 20

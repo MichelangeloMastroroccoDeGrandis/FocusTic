@@ -70,7 +70,7 @@ const ItemPage = () => {
       handleAddItemAndCloseModal={handleAddItemAndCloseModal} closeModal={closeModal}
       setVideoUri={setVideoUri} setThumbnailUri={setThumbnailUri}
     />
-    {}
+    
     </>
   );
 };

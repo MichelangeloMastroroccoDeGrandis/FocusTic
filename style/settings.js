@@ -12,16 +12,32 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: 60, // Add padding to ensure the list doesn't overlap the button
   },
-  button: {
+  buttonContainer: {
     position: 'absolute',
     bottom: 20,
-    left: (Dimensions.get('window').width - (Dimensions.get('window').width * 0.6)) / 2,
-    width: Dimensions.get('window').width * 0.6,
+    left: 20,
+    right: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+  button: {
+    flex: 1,
     backgroundColor: colors.gold,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
     paddingVertical: 10,
+  },
+  qrButton: {
+    flex: 1,
+    backgroundColor: colors.gold,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    gap: 5,
   },
   buttonText: {
     color: colors.dark,

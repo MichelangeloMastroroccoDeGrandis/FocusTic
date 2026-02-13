@@ -1,12 +1,21 @@
-import { Text, Button, View, TouchableOpacity } from 'react-native';
+import { Text, Button, View, TouchableOpacity, TextInput } from 'react-native';
 import CloseButton from '../../utils/CloseButton';
 import ModalWrap from '../../utils/ModalWrap';
 import styles from '../../../style/ModalCreateItem';
+import colors from '../../../style/colors';
 
-const ModalCreateAudio = ({modalVisible, isRecording, startRecording, stopRecording, playRecording, recordingUri, AddItemAndCloseModal, closeModal}) => {
+const ModalCreateAudio = ({modalVisible, isRecording, startRecording, stopRecording, playRecording, recordingUri, AddItemAndCloseModal, closeModal, inputValue, handleInputChange}) => {
     return (
         <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-          <Text style={styles.text}>Add Audio</Text>
+          <Text style={styles.text}>Add Audio Step</Text>
+          <Text style={styles.textSmall}>Title</Text>
+          <TextInput
+            style={styles.input}
+            value={inputValue}
+            onChangeText={handleInputChange}
+            placeholder="Enter title here"
+            placeholderTextColor={colors.light}
+          />
           <View >
             {isRecording ? (
               <TouchableOpacity style={styles.buttonReverse} onPress={stopRecording}>

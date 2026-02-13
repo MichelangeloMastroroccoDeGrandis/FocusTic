@@ -34,9 +34,13 @@ const ModalCreateStep = ({
     // Request the required media permissions on mount
     useEffect(() => {
         const getPermissions = async () => {
-            const mediaPermission = await MediaLibrary.requestPermissionsAsync();
-            const photoPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-            setMediaPermission(mediaPermission.granted && photoPermission.granted);
+            try {
+                const photoPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                setMediaPermission(photoPermission.granted);
+            } catch (error) {
+                console.error('Permission request failed:', error);
+                setMediaPermission(false);
+            }
         };
         getPermissions();
     }, []);
@@ -126,7 +130,7 @@ const ModalCreateStep = ({
                 const asset = await MediaLibrary.createAssetAsync(videoUri);
                 
                 // Get the asset info which includes the thumbnail
-                const info = await MediaLibrary.getAssetInfoAsync(asset);
+                const info = await MediaLibrary.getAssetInfoAsync(asset.id);
                 
                 if (info && info.thumbnail) {
                     setThumbnail(info.thumbnail);
@@ -174,7 +178,9 @@ const ModalCreateStep = ({
                 image={image} 
                 pickImage={pickImage} 
                 AddItemAndCloseModal={AddItemAndCloseModal} 
-                closeModal={closeModal} 
+                closeModal={closeModal}
+                inputValue={inputValue}
+                handleInputChange={handleInputChange}
             />
         );
     } else if (type === 'Video') {
@@ -186,6 +192,8 @@ const ModalCreateStep = ({
                 pickVideo={pickVideo} 
                 AddItemAndCloseModal={AddItemAndCloseModal} 
                 closeModal={closeModal}
+                inputValue={inputValue}
+                handleInputChange={handleInputChange}
             />
         );
     } else if (type === 'Audio') {
@@ -199,6 +207,8 @@ const ModalCreateStep = ({
                 recordingUri={recordingUri} 
                 AddItemAndCloseModal={AddItemAndCloseModal} 
                 closeModal={closeModal}
+                inputValue={inputValue}
+                handleInputChange={handleInputChange}
             /> 
         )
     }

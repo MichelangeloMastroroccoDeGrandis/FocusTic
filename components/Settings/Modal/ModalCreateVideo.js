@@ -1,12 +1,21 @@
-import { Text, View, Image, Button, TouchableOpacity } from 'react-native';
+import { Text, View, Image, Button, TouchableOpacity, TextInput } from 'react-native';
 import CloseButton from '../../utils/CloseButton';
 import ModalWrap from '../../utils/ModalWrap';
 import styles from '../../../style/ModalCreateItem';
+import colors from '../../../style/colors';
 
-const ModalCreateVideo = ({modalVisible, video, thumbnail, pickVideo, AddItemAndCloseModal, closeModal}) => {
+const ModalCreateVideo = ({modalVisible, video, thumbnail, pickVideo, AddItemAndCloseModal, closeModal, inputValue, handleInputChange}) => {
     return (
         <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-        <Text style={styles.text}>Add Video</Text>
+        <Text style={styles.text}>Add Video Step</Text>
+        <Text style={styles.textSmall}>Title</Text>
+        <TextInput
+          style={styles.input}
+          value={inputValue}
+          onChangeText={handleInputChange}
+          placeholder="Enter title here"
+          placeholderTextColor={colors.light}
+        />
         <View >
             {video ? (
                 <>

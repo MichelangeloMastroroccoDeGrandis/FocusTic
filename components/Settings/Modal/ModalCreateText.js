@@ -16,6 +16,8 @@ const ModalCreateText = ({modalVisible,
     timer,
     setTimer}) => {
 
+        const [title, setTitle] = useState('');
+
         const [hours, setHours] = useState(0);
         const [minutes, setMinutes] = useState(0);
         const [seconds, setSeconds] = useState(0);
@@ -60,7 +62,16 @@ const ModalCreateText = ({modalVisible,
 
         return(
             <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
-                <Text style={styles.text}>Add Text</Text>
+                <Text style={styles.text}>Add Text Step</Text>
+                <Text style={styles.textSmall}>Title</Text>
+                <TextInput
+                    style={styles.input}
+                    value={title}
+                    onChangeText={setTitle}
+                    placeholder="Enter title here"
+                    placeholderTextColor={colors.light}
+                />
+                <Text style={styles.textSmall}>Text</Text>
                 <TextInput
                     style={styles.input}
                     value={inputValue}
