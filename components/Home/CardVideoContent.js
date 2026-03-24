@@ -1,11 +1,13 @@
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Video } from 'expo-av';
 import { useState, useRef } from 'react';
-import styles from '../../style/CardVideoContent';
+import createStyles from '../../style/CardVideoContent';
+import { useThemeStyles } from '../../app/context/ThemeContext';
 
 const CardVideoContent = ({content}) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRef = useRef(null);
+    const styles = useThemeStyles(createStyles);
 
     const handlePlayPress = async () => {
         if (videoRef.current) {

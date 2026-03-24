@@ -3,8 +3,8 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { CheckBox } from '@rneui/themed';
 import CloseButton from '../../utils/CloseButton';
 import ModalWrap from "../../utils/ModalWrap"
-import styles from '../../../style/ModalCreateItem';
-import colors from '../../../style/colors';
+import createStyles from '../../../style/ModalCreateItem';
+import { useThemeColors, useThemeStyles } from '../../../app/context/ThemeContext';
 
 
 
@@ -15,6 +15,8 @@ const ModalCreateText = ({modalVisible,
     closeModal, 
     timer,
     setTimer}) => {
+        const colors = useThemeColors();
+        const styles = useThemeStyles(createStyles);
 
         const [title, setTitle] = useState('');
 
@@ -89,7 +91,7 @@ const ModalCreateText = ({modalVisible,
                 iconType="material-community"
                 checkedIcon="checkbox-marked"
                 uncheckedIcon="checkbox-blank-outline"
-                checkedColor="gold"
+                checkedColor={colors.gold}
                 containerStyle={styles.check}
                 textStyle={styles.checkText}
                 title="Add Timer"

@@ -2,13 +2,15 @@ import { View, Text, TouchableOpacity, Share, Alert } from "react-native";
 import { Link } from "expo-router";
 import QRCodeDisplay from './QRCodeDisplay';
 import { useState } from 'react';
-import styles from "../../style/listItemRender";
-import colors from "../../style/colors";
+import createStyles from "../../style/listItemRender";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useThemeColors, useThemeStyles } from "../../app/context/ThemeContext";
 
 const ListItemRender = ({ item, type, list }) => {
     const pathname = type === 'section' ?'/sections/[item]' : '/items/[id]';
     const [qrModalVisible, setQrModalVisible] = useState(false);
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
 
     const generateQRData = () => {
         if (type === 'section' && list) {

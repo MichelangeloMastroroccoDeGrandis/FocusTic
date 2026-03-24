@@ -1,4 +1,4 @@
-package com.anonymous.learnexpo
+package com.anonymous.tikdo
 
 import android.app.Application
 import android.content.res.Configuration

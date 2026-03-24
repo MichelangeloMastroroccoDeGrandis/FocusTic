@@ -1,8 +1,10 @@
 import { Text, Image, TouchableOpacity } from "react-native";
 import CardWrapContent from "./CardWrapContent";
-import styles from "../../../style/CardWrap";
+import createStyles from "../../../style/CardWrap";
+import { useThemeStyles } from "../../../app/context/ThemeContext";
 
 const CardWrap = ({step, type, content, setList, list, id, index, thumbnail, audioPlayback, timer, hours, minutes, seconds}) => {
+  const styles = useThemeStyles(createStyles);
 
   const playAudio = async (uri) => {
     try {

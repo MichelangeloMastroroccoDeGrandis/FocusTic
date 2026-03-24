@@ -2,9 +2,9 @@ import { useRouter } from "expo-router";
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Button, ButtonGroup } from "@rneui/base";
 import ModalCreateStep from "../Modal/ModalCreateStep";
-import styles from "../../../style/DisplayList";
+import createStyles from "../../../style/DisplayList";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import colors from "../../../style/colors";
+import { useThemeColors, useThemeStyles } from "../../../app/context/ThemeContext";
 
 const DisplayList = ({ 
     title, 
@@ -25,6 +25,8 @@ const DisplayList = ({
     }) => {
 
     const router = useRouter();
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
 
     if (!list || !list[id2]) {
         return (

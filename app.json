@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "learnexpo",
-    "slug": "learnexpo",
+    "name": "tikdo",
+    "slug": "tikdo",
     "scheme": "myapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -41,7 +41,7 @@
         "android.permission.RECORD_AUDIO",
         "android.permission.MODIFY_AUDIO_SETTINGS"
       ],
-      "package": "com.anonymous.learnexpo"
+      "package": "com.anonymous.tikdo"
     },
     "web": {
       "favicon": "./assets/favicon.png"

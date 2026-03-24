@@ -1,13 +1,15 @@
 import { View, Text, TouchableOpacity, Alert, Modal, TextInput } from 'react-native';
 import { useState } from 'react';
 import { useItems } from '../../app/context/ItemContext';
-import styles from '../../style/QRScanner';
-import colors from '../../style/colors';
+import createStyles from '../../style/QRScanner';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useThemeColors, useThemeStyles } from '../../app/context/ThemeContext';
 
 const QRScanner = ({ visible, onClose }) => {
     const { list, setList } = useItems();
     const [qrData, setQrData] = useState('');
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
 
     const handleImportData = () => {
         try {

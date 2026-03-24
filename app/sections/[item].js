@@ -1,13 +1,16 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { useItems, ItemProvider } from "../context/ItemContext";
+import { useItems } from "../context/ItemContext";
 import DisplaySectionsToCheck from "../../components/Home/DisplaySectionsToCheck";
-import styles from '../../style/index'
+import createStyles from '../../style/index'
 import { useState, useEffect } from "react";
+import { useThemeColors, useThemeStyles } from "../context/ThemeContext";
 
 
 const SectionPage = () => {
   const router = useRouter();
+  const styles = useThemeStyles(createStyles);
+  const colors = useThemeColors();
   const params = useLocalSearchParams();
   const { title, id } = params;
   const {list } = useItems();
@@ -39,7 +42,7 @@ const SectionPage = () => {
   if (!list || list.length === 0 || !list[id2]) {
     return (
       <View style={styles.container}>
-        <Text>Item not found or invalid ID</Text>
+        <Text style={{ color: colors.light }}>Item not found or invalid ID</Text>
         <TouchableOpacity style={styles.button} onPress={() => router.back()}>
           <Text style={styles.buttonText}>Return to Home</Text>
         </TouchableOpacity>
@@ -49,7 +52,9 @@ const SectionPage = () => {
 
   return (
     <View style={styles.container}>
-      <Text>{title}</Text>
+      <Text style={{ color: colors.light, fontSize: 22, textAlign: 'center', marginBottom: 12 }}>
+        {title}
+      </Text>
         <FlatList data={
           list[id2].sections} 
           renderItem={({item}) => <DisplaySectionsToCheck 
@@ -67,12 +72,4 @@ const SectionPage = () => {
   );
 }
 
-const ItemPageWithProvider = () => {
-    return (
-      <ItemProvider>
-        <SectionPage />
-      </ItemProvider>
-    );
-  };
-  
-  export default ItemPageWithProvider;
+export default SectionPage;

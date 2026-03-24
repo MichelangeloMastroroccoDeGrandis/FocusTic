@@ -2,20 +2,22 @@ import { View, Text, TouchableOpacity, Alert, Modal } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useState, useEffect } from 'react';
 import { useItems } from '../../app/context/ItemContext';
-import styles from '../../style/QRScanner';
-import colors from '../../style/colors';
+import createStyles from '../../style/QRScanner';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useThemeColors, useThemeStyles } from '../../app/context/ThemeContext';
 
 const QRScannerCamera = ({ visible, onClose }) => {
     const { list, setList } = useItems();
     const [permission, requestPermission] = useCameraPermissions();
     const [scanned, setScanned] = useState(false);
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
 
     useEffect(() => {
         if (visible && !permission) {
             requestPermission();
         }
-    }, [visible]);
+    }, [visible, permission, requestPermission]);
 
     const handleBarCodeScanned = ({ data }) => {
         if (scanned) return;
@@ -47,7 +49,7 @@ const QRScannerCamera = ({ visible, onClose }) => {
             setScanned(false);
             onClose();
         } catch (error) {
-            Alert.alert('Error', 'Invalid QR code format. Please scan a valid FocusTic QR code.');
+            Alert.alert('Error', 'Invalid QR code format. Please scan a valid TikDo QR code.');
             setScanned(false);
         }
     };

@@ -1,7 +1,9 @@
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import styles from "../../style/CloseButton";
+import { TouchableOpacity, Text } from "react-native";
+import createStyles from "../../style/CloseButton";
+import { useThemeStyles } from "../../app/context/ThemeContext";
 
 const CloseButton = ({closeModal}) => {
+    const styles = useThemeStyles(createStyles);
     
     return (
         <TouchableOpacity style={styles.button} onPress={closeModal} >

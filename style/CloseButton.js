@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
 import buttonStyleClose from "./ButtonStyleClose";
 
-const styles = StyleSheet.create({
-    ...buttonStyleClose
-});
+const createStyles = (colors) =>
+  StyleSheet.create({
+    ...buttonStyleClose(colors),
+  });
 
-export default styles;
+export default createStyles;

@@ -3,12 +3,14 @@ import QRCode from 'react-native-qrcode-svg';
 import { useState } from 'react';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as MediaLibrary from 'expo-media-library';
-import styles from "../../style/listItemRender";
-import colors from "../../style/colors";
+import createStyles from "../../style/listItemRender";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useThemeColors, useThemeStyles } from "../../app/context/ThemeContext";
 
 const QRCodeDisplay = ({ visible, onClose, qrData, title }) => {
     const [isDownloading, setIsDownloading] = useState(false);
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
 
     const handleDownloadQR = async () => {
         try {
@@ -30,7 +32,7 @@ const QRCodeDisplay = ({ visible, onClose, qrData, title }) => {
             });
             
             const asset = await MediaLibrary.createAssetAsync(fileUri);
-            await MediaLibrary.createAlbumAsync('FocusTic QR Codes', asset, false);
+            await MediaLibrary.createAlbumAsync('TikDo QR Codes', asset, false);
             
             Alert.alert('Success', 'QR code saved to gallery!');
             setIsDownloading(false);

@@ -3,7 +3,8 @@ import buttonStyles from "./ButtonStyle";
 
 const { width } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const createStyles = (colors) =>
+  StyleSheet.create({
     contentContainer: {
       flex: 1,
       paddingVertical: 10,
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     controlsContainer: {
       paddingVertical: 10,
     },
-    ...buttonStyles
-});
+    ...buttonStyles(colors),
+  });
 
-export default styles;
+export default createStyles;

@@ -1,24 +1,23 @@
 import { StyleSheet } from "react-native";
-import colors from "./colors";
 import { Dimensions } from "react-native";
 
-const styles = StyleSheet.create({
+const createStyles = (colors) =>
+  StyleSheet.create({
     container: {
-        flex: 1,
-        width: Dimensions.get('window').width * .95,
-        //maxHeight: Dimensions.get('window').height * 0.5,
-        marginHorizontal: 10,
-        marginTop: 0,
-        backgroundColor: colors.medium,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center', 
-        padding: 20, 
-        borderRadius: 0,
+      flex: 1,
+      width: Dimensions.get('window').width * 0.95,
+      marginHorizontal: 10,
+      marginTop: 0,
+      backgroundColor: colors.medium,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+      padding: 20,
+      borderRadius: 0,
     },
     scrollContainer: {
-      padding: 20
-    }
-});
+      padding: 20,
+    },
+  });
 
-export default styles;
+export default createStyles;

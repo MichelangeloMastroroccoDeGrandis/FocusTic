@@ -1,10 +1,13 @@
 import { Text, View, Image, Button, TouchableOpacity, TextInput } from 'react-native';
 import CloseButton from '../../utils/CloseButton';
 import ModalWrap from '../../utils/ModalWrap';
-import styles from '../../../style/ModalCreateItem';
-import colors from '../../../style/colors';
+import createStyles from '../../../style/ModalCreateItem';
+import { useThemeColors, useThemeStyles } from '../../../app/context/ThemeContext';
 
 const ModalCreateVideo = ({modalVisible, video, thumbnail, pickVideo, AddItemAndCloseModal, closeModal, inputValue, handleInputChange}) => {
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
+
     return (
         <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
         <Text style={styles.text}>Add Video Step</Text>

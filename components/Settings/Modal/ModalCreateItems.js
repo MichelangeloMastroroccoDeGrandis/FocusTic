@@ -1,8 +1,8 @@
 import { Text, TextInput, TouchableOpacity } from "react-native";
 import ModalWrap from "../../utils/ModalWrap";
 import CloseButton from "../../utils/CloseButton";
-import styles from "../../../style/ModalCreateItems";
-import colors from "../../../style/colors"
+import createStyles from "../../../style/ModalCreateItems";
+import { useThemeColors, useThemeStyles } from "../../../app/context/ThemeContext";
 
 const ModalCreateItems = ({ 
   modalVisible, 
@@ -10,6 +10,8 @@ const ModalCreateItems = ({
   handleInputChange, 
   AddItemAndCloseModal, 
   closeModal }) => {
+  const colors = useThemeColors();
+  const styles = useThemeStyles(createStyles);
 
   return (
     <ModalWrap style={styles.container} modalVisible={modalVisible} closeModal={closeModal}>

@@ -5,12 +5,15 @@ import CardTextContent from './CardTextContent';
 import CardImageContent from './CardImageContent';
 import CardVideoContent from './CardVideoContent';
 import CardAudioContent from './CardAudioContent';
-import styles from '../../style/CardWrapToCheck';
+import createStyles from '../../style/CardWrapToCheck';
+import { useThemeColors, useThemeStyles } from '../../app/context/ThemeContext';
 
 const CardWrapToCheck = ({input, checked, handleCheckboxToggle}) => {
     const {step, content, type, id, timer, hours, minutes, seconds, title } = input;
     const [isChecked, setIsChecked] = useState(checked);
     const [countdownFinished, setCountdownFinished] = useState(false);
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
 
     console.log(timer)
 
@@ -57,7 +60,7 @@ const CardWrapToCheck = ({input, checked, handleCheckboxToggle}) => {
                     iconType="material-community"
                     checkedIcon="checkbox-marked"
                     uncheckedIcon="checkbox-blank-outline"
-                    checkedColor="gold"
+                    checkedColor={colors.gold}
                     containerStyle={styles.check}
                     textStyle={styles.checkText}
                     title="Done"

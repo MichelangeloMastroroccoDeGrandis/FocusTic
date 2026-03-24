@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import colors from "./colors";
 import buttonStyles from "./ButtonStyle";
 
-const styles = StyleSheet.create({
-    ...buttonStyles
-})
+const createStyles = (colors) =>
+  StyleSheet.create({
+    ...buttonStyles(colors),
+  })
 
-export default styles
+export default createStyles

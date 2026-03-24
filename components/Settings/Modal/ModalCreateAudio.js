@@ -1,10 +1,13 @@
 import { Text, Button, View, TouchableOpacity, TextInput } from 'react-native';
 import CloseButton from '../../utils/CloseButton';
 import ModalWrap from '../../utils/ModalWrap';
-import styles from '../../../style/ModalCreateItem';
-import colors from '../../../style/colors';
+import createStyles from '../../../style/ModalCreateItem';
+import { useThemeColors, useThemeStyles } from '../../../app/context/ThemeContext';
 
 const ModalCreateAudio = ({modalVisible, isRecording, startRecording, stopRecording, playRecording, recordingUri, AddItemAndCloseModal, closeModal, inputValue, handleInputChange}) => {
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
+
     return (
         <ModalWrap modalVisible={modalVisible} closeModal={closeModal}>
           <Text style={styles.text}>Add Audio Step</Text>

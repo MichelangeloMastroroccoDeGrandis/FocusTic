@@ -1,9 +1,11 @@
 import { View, Text, TouchableOpacity  } from 'react-native';
 import { Audio } from 'expo-av';
 import { useState } from 'react';
-import styles from '../../style/ButtonStyle';
+import createStyles from '../../style/ButtonStyle';
+import { useThemeStyles } from '../../app/context/ThemeContext';
 
 const CardAudioContent = ({content}) => {
+    const styles = useThemeStyles(createStyles);
 
     const [sound, setSound] = useState();
     const [isPlaying, setIsPlaying] = useState(false);

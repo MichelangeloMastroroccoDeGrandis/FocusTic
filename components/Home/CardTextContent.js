@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import colors from '../../style/colors';
-import styles from '../../style/ButtonStyle';
+import createStyles from '../../style/ButtonStyle';
+import { useThemeColors, useThemeStyles } from '../../app/context/ThemeContext';
 
 const CardTextContent = ({content, timer, hours, minutes, seconds, onCountdownFinish }) => {
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
 
     const [time, setTime] = useState({
         hours: Number(hours),
@@ -51,7 +53,7 @@ const CardTextContent = ({content, timer, hours, minutes, seconds, onCountdownFi
             if (countdownFinished && onCountdownFinish) {
                 onCountdownFinish();
             }
-        }, [countdownFinished]);
+        }, [countdownFinished, onCountdownFinish]);
     
         const startCountdown = () => {
             setCountdownActive(true);

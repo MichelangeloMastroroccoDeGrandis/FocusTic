@@ -1,24 +1,22 @@
 import { StyleSheet } from "react-native";
 import buttonStyles from "./ButtonStyle";
-import colors from "./colors";
 import { Dimensions } from "react-native";
 
 
-const styles = StyleSheet.create({
-   
+const createStyles = (colors) =>
+  StyleSheet.create({
     text: {
-        color: colors.light,
-        textAlign: 'left',
-        fontSize: 18
+      color: colors.light,
+      textAlign: 'left',
+      fontSize: 18,
     },
     image: {
-        width: Dimensions.get('window').width * .6,
-        height: Dimensions.get('window').height * .6,
-        marginTop: 10,
-        borderRadius: 10,
-      },
-    ...buttonStyles,
-    
-});
+      width: Dimensions.get('window').width * 0.6,
+      height: Dimensions.get('window').height * 0.6,
+      marginTop: 10,
+      borderRadius: 10,
+    },
+    ...buttonStyles(colors),
+  });
 
-export default styles;
+export default createStyles;

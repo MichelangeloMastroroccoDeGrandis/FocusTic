@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { useItems, ItemProvider } from "../context/ItemContext";
+import { useItems } from "../context/ItemContext";
 import { Audio } from 'expo-av';
 import { HandleModal } from '../../components/Hooks/HandleModal';
 import { resetFormFields } from "../../components/Settings/Display/ResetFormField";
@@ -75,10 +75,4 @@ const ItemPage = () => {
   );
 };
 
-const ItemPageWithProvider = () => (
-  <ItemProvider>
-    <ItemPage />
-  </ItemProvider>
-);
-
-export default ItemPageWithProvider;
+export default ItemPage;

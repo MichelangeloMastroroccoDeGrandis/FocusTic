@@ -3,13 +3,12 @@ import { useContext } from 'react';
 import { ItemContext } from '../context/ItemContext';
 import DeleteButton from '../context/DeleteButton';
 import ListItemRender from '../../components/utils/ListItemRender';
-import styles from '../../style/index'
-
-
+import createStyles from '../../style/index';
+import { useThemeStyles } from '../context/ThemeContext';
 
 export default function Tab() {
-
-  const {list} = useContext(ItemContext);
+  const { list } = useContext(ItemContext);
+  const styles = useThemeStyles(createStyles);
 
   return (
   <>

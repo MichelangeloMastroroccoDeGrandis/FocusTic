@@ -1,10 +1,13 @@
 import { View, Text, TouchableOpacity, Share, Alert, ScrollView } from 'react-native';
 import { Modal } from 'react-native';
-import styles from "../../style/listItemRender";
-import colors from "../../style/colors";
+import createStyles from "../../style/listItemRender";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useThemeColors, useThemeStyles } from "../../app/context/ThemeContext";
 
 const QRDisplay = ({ visible, onClose, qrData, title }) => {
+    const colors = useThemeColors();
+    const styles = useThemeStyles(createStyles);
+
     const handleShareQR = async () => {
         try {
             await Share.share({
